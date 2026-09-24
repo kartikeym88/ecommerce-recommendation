@@ -1,3 +1,4 @@
+import dataclasses
 from src.recsys.domain import Recommendation
 from src.recsys.explain.llm import LLMExplainer
 
@@ -42,7 +43,8 @@ class Ranker:
                 evidence=None,
                 reason=""
             )
-            rec.reason = self.explainer.generate_explanation(history_names, rec)
+            reason = self.explainer.generate_explanation(history_names, rec)
+            rec = dataclasses.replace(rec, reason=reason)
             recs.append(rec)
             
         return recs, strategy
