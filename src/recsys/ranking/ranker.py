@@ -34,17 +34,18 @@ class Ranker:
             if cat_counts.get(cat, 0) >= 3: continue
             cat_counts[cat] = cat_counts.get(cat, 0) + 1
             
+            brk = breakdowns[pid] if breakdowns else None
+            reason = self.explainer.generate_explanation(history_names, name, cat, brk)
+            
             rec = Recommendation(
                 product_id=pid,
                 product_name=name,
                 category=cat,
                 score=round(float(score), 4),
-                breakdown=breakdowns[pid] if breakdowns else None,
+                breakdown=brk,
                 evidence=None,
-                reason=""
+                reason=reason
             )
-            reason = self.explainer.generate_explanation(history_names, rec)
-            rec = dataclasses.replace(rec, reason=reason)
             recs.append(rec)
             
         return recs, strategy
