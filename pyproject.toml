@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "recsys"
+version = "0.1.0"
+description = "AI-Powered Personalized Recommendation System"
+authors = [
+    {name = "AI"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "numpy",
+    "scipy",
+    "scikit-learn",
+    "pyarrow",
+    "pydantic",
+    "fastapi",
+    "uvicorn[standard]",
+    "httpx",
+    "streamlit",
+    "plotly",
+    "joblib",
+    "pyyaml",
+    "pandera"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "ruff"
+]
+llm = [
+    "anthropic"
+]
+spark = [
+    "pyspark"
+]

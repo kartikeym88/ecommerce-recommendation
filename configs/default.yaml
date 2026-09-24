@@ -1,0 +1,26 @@
+seed: 42
+event_weights:
+  view: 1.0
+  click: 2.0
+  like: 3.0
+  purchase: 5.0
+hybrid_weights:
+  cf: 0.6
+  content: 0.3
+  popularity: 0.1
+cold_start_threshold: 5
+tfidf_params:
+  stop_words: "english"
+  ngram_range: [1, 2]
+  min_df: 1
+  sublinear_tf: true
+paths:
+  data_dir: "data"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  artifacts_dir: "artifacts"
+llm_settings:
+  provider: "anthropic"
+  model: "claude-3-haiku-20240307"
+  timeout: 5.0
+top_k_default: 10
