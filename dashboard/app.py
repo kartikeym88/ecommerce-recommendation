@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 import os
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 if not os.path.exists("data/raw/users.csv"):
     from src.recsys.data.generator import SyntheticDataGenerator
