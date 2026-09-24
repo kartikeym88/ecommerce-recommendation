@@ -79,7 +79,7 @@ def render_recommendation_row(rank, rec):
             <span class="rec-name">{rec.product_name}</span> 
             <span class="rec-meta">({rec.category})</span>
             <div style="font-size: 0.85em; color: #5a6b7d; margin-top: 4px; font-style: italic;">
-                ✨ {rec.reason}
+                {rec.reason}
             </div>
         </div>
         <div class="rec-score">
