@@ -2,6 +2,32 @@
 
 A recommendation engine for e-commerce platforms. It takes raw user activity (page views, clicks, purchases, ratings) and produces a ranked list of products the user is likely to want next.
 
+## Architecture overview
+
+```mermaid
+graph TD
+    A[Raw Interaction Logs] --> B[DataProcessor]
+    B --> B1[Validate and clean]
+    B1 --> B2[Compute implicit strength weights]
+    B2 --> C[Sparse User-Item Matrix]
+    B2 --> D[TF-IDF Content Features]
+
+    C --> E[Item-Item CF]
+    D --> F[Content-Based]
+    C --> G[Popularity Baseline]
+
+    E --> H[HybridRecommender]
+    F --> H
+    G --> H
+    H --> |strategy selection + score blending| I[Ranker]
+    I --> |diversity caps, history exclusion| J[Final Ranked List]
+
+    J --> K[FastAPI Endpoints]
+    J --> L[Streamlit Dashboard]
+    J --> M[LLM Explainer]
+    M --> |plain-text reason per item| L
+```
+
 The system combines three scoring strategies and picks the right one depending on how much data it has about a given user:
 
 - **Collaborative filtering** for users with enough interaction history. It builds an item-item similarity matrix from the sparse user-item matrix using cosine similarity, then scores unseen items based on what similar items the user already engaged with.
