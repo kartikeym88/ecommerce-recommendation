@@ -1,10 +1,12 @@
 import streamlit as st
 import pandas as pd
 import os
-import subprocess
 
 if not os.path.exists("data/raw/users.csv"):
-    subprocess.run(["python", "scripts/generate_data.py"], check=True)
+    from src.recsys.data.generator import SyntheticDataGenerator
+    from src.recsys.config import settings
+    gen = SyntheticDataGenerator(n_users=1000, n_products=200, n_days=180, seed=settings.seed)
+    gen.write(settings.paths.data_dir)
 
 from dashboard.api_client import get_users, get_recommendations, get_activity
 from dashboard.components import inject_css, render_activity_table, render_recommendation_row
